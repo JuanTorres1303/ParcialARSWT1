@@ -42,3 +42,8 @@ Para 'refactorizar' este código, y hacer que explote la capacidad multi-núcleo
 	
 	* Se sabe que el HOST 202.24.34.55 está reportado en listas negras de una forma más dispersa, y que el host 212.24.24.55 NO está en ninguna lista negra.
 
+Solucion: 
+
+1. Cree la clase tipo treahd para que iterara en el segmento disponible.
+
+
