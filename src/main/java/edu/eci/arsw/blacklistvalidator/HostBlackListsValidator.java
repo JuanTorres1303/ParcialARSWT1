@@ -32,19 +32,30 @@ public class HostBlackListsValidator {
     public List<Integer> checkHost(String ipaddress, int N){
         
         LinkedList<Integer> blackListOcurrences=new LinkedList<>();
+
         
         int ocurrencesCount=0;
-        
         HostBlacklistsDataSourceFacade skds=HostBlacklistsDataSourceFacade.getInstance();
-        int server_disponible = skds.getRegisteredServersCount();
-        
         int checkedListsCount=0;
+        int seversPerThread =  skds.getRegisteredServersCount()/N;
+        int remainder = skds.getRegisteredServersCount()%N;
+        int limite_inferior = 0;
+        for (int i = 0; i < N; i ++){
+            int extra = (i < remainder)?1:0;
+            int limite_superior = limite_inferior + seversPerThread + extra;
+            ValidatorTreahd treahd = new ValidatorTreahd(limite_superior, limite_inferior, ipaddress, null );
+            threads.add(treahd);
+            treahd.start();
+            limite_inferior = limite_superior;
+        }
+        for (ValidatorTreahd thread threads){
+            try{
+                thread.join();
+            } catch (InterruptedException ex);
+            blackListOcurrences.add(thread.getOcurrences());
 
-        int inicio;
-        int fin = ((server_disponible / N)+ N % 2);
 
-
-        
+        }
         for (int i=0;i<skds.getRegisteredServersCount() && ocurrencesCount<BLACK_LIST_ALARM_COUNT;i++){
             checkedListsCount++;
             
@@ -70,7 +81,10 @@ public class HostBlackListsValidator {
     
     
     private static final Logger LOG = Logger.getLogger(HostBlackListsValidator.class.getName());
-   
-    
+
+    public boolean isInBlackListServer(int i, String ipadress) {
+        throw new UnsupportedOperationException("Unimplemented method 'isInBlackListServer'");
+    }
+
     
 }
