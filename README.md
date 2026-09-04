@@ -26,7 +26,7 @@ INFO: HOST 205.24.34.55 Reported as trustworthy
 INFO: HOST 205.24.34.55 Reported as NOT trustworthy
 
 
-Al programa de prueba provisto (Main), le toma sólo algunos segundos análizar y reportar la dirección provista (200.24.34.55), ya que la misma está registrada más de cinco veces en los primeros servidores, por lo que no requiere recorrerlos todos. Sin embargo, hacer la búsqueda en casos donde NO hay reportes, o donde los mismos están dispersos en las miles de listas negras, toma bastante tiempo.
+Al programa de prueba provisto (Main), le toma sólo algunos segundos análizar y reportar la dirección provista (202.24.34.55), ya que la misma está registrada más de cinco veces en los primeros servidores, por lo que no requiere recorrerlos todos. Sin embargo, hacer la búsqueda en casos donde NO hay reportes, o donde los mismos están dispersos en las miles de listas negras, toma bastante tiempo.
 
 Éste, como cualquier método de búsqueda, puede verse como un problema vergonzosamente paralelo, ya que no existen dependencias entre una partición del problema y otra.
 
@@ -41,9 +41,9 @@ Para 'refactorizar' este código, y hacer que explote la capacidad multi-núcleo
 	* No se deben generar esperas activas nuevas, ni condiciones carrera. 
 	
 	* Se sabe que el HOST 202.24.34.55 está reportado en listas negras de una forma más dispersa, y que el host 212.24.24.55 NO está en ninguna lista negra.
-
+ 
 Solucion: 
 
-1. Cree la clase tipo treahd para que iterara en el segmento disponible.
+1. Cree la clase tipo thread para que iterara en el segmento disponible.
 
 

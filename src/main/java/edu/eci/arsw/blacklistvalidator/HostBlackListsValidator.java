@@ -29,15 +29,21 @@ public class HostBlackListsValidator {
      * @param ipaddress suspicious host's IP address.
      * @return  Blacklists numbers where the given host's IP address was found.
      */
-    public List<Integer> checkHost(String ipaddress){
+    public List<Integer> checkHost(String ipaddress, int N){
         
         LinkedList<Integer> blackListOcurrences=new LinkedList<>();
         
         int ocurrencesCount=0;
         
         HostBlacklistsDataSourceFacade skds=HostBlacklistsDataSourceFacade.getInstance();
+        int server_disponible = skds.getRegisteredServersCount();
         
         int checkedListsCount=0;
+
+        int inicio;
+        int fin = ((server_disponible / N)+ N % 2);
+
+
         
         for (int i=0;i<skds.getRegisteredServersCount() && ocurrencesCount<BLACK_LIST_ALARM_COUNT;i++){
             checkedListsCount++;
@@ -64,7 +70,7 @@ public class HostBlackListsValidator {
     
     
     private static final Logger LOG = Logger.getLogger(HostBlackListsValidator.class.getName());
-    
+   
     
     
 }
