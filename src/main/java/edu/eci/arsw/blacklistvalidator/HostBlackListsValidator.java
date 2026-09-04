@@ -33,7 +33,7 @@ public class HostBlackListsValidator {
         
         LinkedList<Integer> blackListOcurrences=new LinkedList<>();
 
-        
+        List <ValidatorTreahd> threads = new LinkedList<>();
         int ocurrencesCount=0;
         HostBlacklistsDataSourceFacade skds=HostBlacklistsDataSourceFacade.getInstance();
         int checkedListsCount=0;
@@ -48,13 +48,11 @@ public class HostBlackListsValidator {
             treahd.start();
             limite_inferior = limite_superior;
         }
-        for (ValidatorTreahd thread threads){
+        for (ValidatorTreahd treahd:threads){
             try{
-                thread.join();
+                threads.join();
             } catch (InterruptedException ex);
-            blackListOcurrences.add(thread.getOcurrences());
-
-
+            blackListOcurrences.add(threads.getOcurrences());
         }
         for (int i=0;i<skds.getRegisteredServersCount() && ocurrencesCount<BLACK_LIST_ALARM_COUNT;i++){
             checkedListsCount++;

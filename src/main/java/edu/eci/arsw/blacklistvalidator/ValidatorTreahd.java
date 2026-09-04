@@ -38,6 +38,7 @@ public class ValidatorTreahd extends Thread{
     public void setLimite_inferior(int limite_inferior) {
         this.limite_inferior = limite_inferior;
     }
+    
 }
 
    
